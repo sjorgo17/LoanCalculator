@@ -42,7 +42,11 @@ namespace MortgageCalculator
             var months = years * 12;
             var monthlyMortgage = 0.0;
 
-            monthlyMortgage = (monthly_rate * principal * Math.Pow(1 + monthly_rate, months))/(Math.Pow(1 + monthly_rate, months) - 1);
+            if (monthly_rate != 0)
+                monthlyMortgage = (monthly_rate * principal * Math.Pow(1 + monthly_rate, months)) / (Math.Pow(1 + monthly_rate, months) - 1);
+            else if (monthly_rate == 0)
+                monthlyMortgage = principal / months;
+
             Console.WriteLine(string.Format("Monthly mortgage is: " + monthlyMortgage.ToString("C")));
 
             amortizationTable(principal, monthlyMortgage, rate, months);
