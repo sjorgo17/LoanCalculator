@@ -8,9 +8,9 @@ namespace MortgageCalculator
         {
             Console.WriteLine("Enter loan's principal: ");
             var input_Principal = Console.ReadLine();
-            float principal;
+            double principal;
 
-            while (string.IsNullOrEmpty(input_Principal) || !float.TryParse(input_Principal, out principal))
+            while (string.IsNullOrEmpty(input_Principal) || !double.TryParse(input_Principal, out principal))
             {
                 Console.WriteLine("Wrong input! Please try again: ");
                 input_Principal = Console.ReadLine();
@@ -19,9 +19,9 @@ namespace MortgageCalculator
   
             Console.WriteLine("Enter yearly interest rate: ");
             var input_rate = Console.ReadLine();
-            float rate;
+            double rate;
 
-            while (string.IsNullOrEmpty(input_rate) || !float.TryParse(input_rate, out rate))
+            while (string.IsNullOrEmpty(input_rate) || !double.TryParse(input_rate, out rate))
             {
                 Console.WriteLine("Wrong input! Please try again: ");
                 input_rate = Console.ReadLine();
@@ -53,22 +53,31 @@ namespace MortgageCalculator
 
         }
 
-        public static void amortizationTable(float principal, double monthlyMortgage, float rate, float months)
+        public static void amortizationTable(double principal, double monthlyMortgage, double rate, double months)
         {
             Console.WriteLine("\t  Amortization Schedule");
             Console.WriteLine("----------------------------------------------");
-            Console.WriteLine("|Month| \t |Interest| \t |Principal|");
+            Console.WriteLine("|Month| \t |Principal| \t |Interest| \t |Total interest| \t |Balance|");
 
             DateTime date = DateTime.Today;
             double amortizationP = principal;
+            double totalInterest = 0;
 
 
             for (var i = 0; i < months; i++)
             {
-                var interest = amortizationP * rate / 12;
+                var interest = (amortizationP * rate) / 12;
                 var principal_payment = monthlyMortgage - interest;
                 amortizationP = amortizationP - principal_payment;
-                Console.WriteLine("{0} \t {1} \t {2}", date.ToString("MMMM-yyyy"), interest.ToString("C"), principal_payment.ToString("C"));
+                totalInterest += interest;
+
+                Console.WriteLine("{0} \t {1} \t {2} \t {3} \t {4}", 
+                    date.ToString("MMMM-yyyy"),
+                    principal_payment.ToString("C"), 
+                    interest.ToString("C"),
+                    totalInterest.ToString("C"),
+                    amortizationP.ToString("C"));
+
                 date = date.AddMonths(1);
             }
 
