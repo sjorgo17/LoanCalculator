@@ -2,23 +2,12 @@
 
 namespace MortgageCalculator
 {
-    public class Loan
+    public abstract class Loan
     { 
-    public double Principal { get; set; }
-    public double YearlyInterestRate { get; set; }
-    public int Years { get; set; }
+    public abstract double Principal { get; set; }
+    public abstract double YearlyInterestRate { get; set; }
+    public abstract int Years { get; set; }
 
-    public Loan(double principal, double yearlyInterestRate, int years)
-    {
-        Principal = principal;
-        YearlyInterestRate = yearlyInterestRate;
-        Years = years;
-    }
-
-    public Loan(double yearlyInterestRate)
-    {
-        YearlyInterestRate = yearlyInterestRate;
-    }
 
     public double CalculateMonthlyPayment()
     {

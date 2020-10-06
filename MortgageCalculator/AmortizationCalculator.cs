@@ -23,7 +23,7 @@ namespace MortgageCalculator
         {
             Console.WriteLine("\t\t  Amortization Schedule");
             Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine("|Date| \t\t |Principal| \t |Interest| \t |Balance|");
+            Console.WriteLine("|Date| \t |Principal| \t |Interest| \t |Balance|");
         }
 
         private void GenerateTableData()
@@ -40,7 +40,7 @@ namespace MortgageCalculator
                 var principalPayment = _monthlyPayment - interest;
                 balance -= principalPayment;
 
-                Console.WriteLine("{0} \t {1} \t {2} \t {3}", date.AddMonths(i).ToString("MMMM-yyyy"), principalPayment.ToString("C"), interest.ToString("C"), balance.ToString("C"));
+                Console.WriteLine("{0} \t {1} \t {2} \t {3}", date.AddMonths(i).ToString("MMM-yy"), principalPayment.ToString("C"), interest.ToString("C"), balance.ToString("C"));
             }
         }
     }

@@ -2,17 +2,9 @@
 {
     public class StudentLoan: Loan
     {
-        private const double _yearlyInterestRate = 0.025;
-
-        public StudentLoan(double principal, int years)
-            : base(principal, _yearlyInterestRate, years)
-        {
-        }
-
-        public StudentLoan()
-            :base(_yearlyInterestRate)
-        {
-        }
+        public override double YearlyInterestRate { get; set; } = 0.025;
+        public override double Principal { get; set; }
+        public override int Years { get; set; }
     }
 
 }
