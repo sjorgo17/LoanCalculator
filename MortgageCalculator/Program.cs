@@ -10,11 +10,10 @@ namespace MortgageCalculator
             double yearlyInterestRate = GetYearlyInterestRate();
             int numberOfYears = GetNumberOfYears();
 
-            ILoan mortgageLoan = new MortgageLoan(principal, yearlyInterestRate, numberOfYears);
-            var monthlyPayment = mortgageLoan.CalculateMonthlyPayment();
-            Console.WriteLine(string.Format("Monthly mortgage is: " + monthlyPayment.ToString("C")));
+            MortgageLoan mortgageLoan = new MortgageLoan(principal, yearlyInterestRate, numberOfYears);
+            Console.WriteLine(string.Format("Monthly mortgage is: " + mortgageLoan.CalculateMonthlyPayment().ToString("C")));
 
-            AmortizationCalculator amortizationCalculator = new AmortizationCalculator(mortgageLoan, monthlyPayment);
+            AmortizationCalculator amortizationCalculator = new AmortizationCalculator(mortgageLoan);
             amortizationCalculator.GenerateMonthlyAmortizationSchedule();
 
         }

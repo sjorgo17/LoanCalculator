@@ -7,10 +7,10 @@ namespace MortgageCalculator
         private ILoan _loan;
         private double _monthlyPayment;
 
-        public AmortizationCalculator(ILoan loan, double monthlyPayment)
+        public AmortizationCalculator(ILoan loan)
         {
             _loan = loan;
-            _monthlyPayment = monthlyPayment;
+            _monthlyPayment = _loan.CalculateMonthlyPayment() ;
         }
 
         public void GenerateMonthlyAmortizationSchedule()
@@ -21,16 +21,18 @@ namespace MortgageCalculator
 
         private void GenerateTableHeader()
         {
-            Console.WriteLine("\t  Amortization Schedule");
-            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("\t\t  Amortization Schedule");
+            Console.WriteLine("----------------------------------------------------------");
             Console.WriteLine("|Date| \t\t |Principal| \t |Interest| \t |Balance|");
         }
 
         private void GenerateTableData()
         {
+            const int monthsInYear = 12;
+
             DateTime date = DateTime.Today;
             var balance = _loan.Principal;
-            var months = _loan.Years * 12;
+            int months = _loan.Years * monthsInYear;
 
             for (var i = 0; i < months; i++)
             {
@@ -38,9 +40,7 @@ namespace MortgageCalculator
                 var principalPayment = _monthlyPayment - interest;
                 balance -= principalPayment;
 
-                Console.WriteLine("{0} \t {1} \t {2} \t {3}", date.ToString("MMMM-yyyy"), principalPayment.ToString("C"), interest.ToString("C"), balance.ToString("C"));
-
-                date = date.AddMonths(1);
+                Console.WriteLine("{0} \t {1} \t {2} \t {3}", date.AddMonths(i).ToString("MMMM-yyyy"), principalPayment.ToString("C"), interest.ToString("C"), balance.ToString("C"));
             }
         }
     }
