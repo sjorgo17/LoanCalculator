@@ -2,32 +2,17 @@
 
 namespace MortgageCalculator
 {
-    public class MortgageLoan : ILoan
+    public class MortgageLoan : Loan
     {
-        public double Principal { get; set; }
-        public double YearlyInterestRate { get; set; }
-        public int Years { get; set; }
+        private const double _yearlyInterestRate = 0.065;
 
-        public MortgageLoan(double principal, double yearlyInterestRate, int years)
+        public MortgageLoan(double principal, int years)
+            :base(principal, _yearlyInterestRate, years)
         {
-            Principal = principal;
-            YearlyInterestRate = yearlyInterestRate;
-            Years = years;
         }
-        public double CalculateMonthlyPayment()
+        public MortgageLoan()
+            :base(_yearlyInterestRate)
         {
-            const int MonthsInYear = 12;
-            var monthlyInterestRate = YearlyInterestRate / MonthsInYear;
-            var months = Years * MonthsInYear;
-
-            double monthlyPayment;
-            if (monthlyInterestRate != 0)
-                monthlyPayment = (monthlyInterestRate * Principal * Math.Pow(1 + monthlyInterestRate, months)) / (Math.Pow(1 + monthlyInterestRate, months) - 1);
-            else
-                monthlyPayment = Principal / Years;
-
-            return monthlyPayment;
         }
-
     }
 }
