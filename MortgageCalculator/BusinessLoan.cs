@@ -2,7 +2,7 @@
 {
     public class BusinessLoan: Loan
     {
-        private const double _yearlyInterestRate = 0.05;
+        private const double _yearlyInterestRate = 0.045;
 
         public BusinessLoan(double principal, int years)
             : base(principal, _yearlyInterestRate, years)

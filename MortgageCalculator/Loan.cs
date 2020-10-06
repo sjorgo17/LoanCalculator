@@ -3,8 +3,7 @@
 namespace MortgageCalculator
 {
     public class Loan
-    {
-
+    { 
     public double Principal { get; set; }
     public double YearlyInterestRate { get; set; }
     public int Years { get; set; }

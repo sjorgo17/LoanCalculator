@@ -4,7 +4,7 @@ namespace MortgageCalculator
 {
     public class MortgageLoan : Loan
     {
-        private const double _yearlyInterestRate = 0.065;
+        private const double _yearlyInterestRate = 0.032;
 
         public MortgageLoan(double principal, int years)
             :base(principal, _yearlyInterestRate, years)
