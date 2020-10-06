@@ -4,13 +4,13 @@ namespace MortgageCalculator
 {
     public class AmortizationCalculator
     {
-        private ILoan _loan;
+        private Loan _loan;
         private double _monthlyPayment;
 
-        public AmortizationCalculator(ILoan loan)
+        public AmortizationCalculator(Loan loan)
         {
             _loan = loan;
-            _monthlyPayment = _loan.CalculateMonthlyPayment() ;
+            _monthlyPayment = loan.CalculateMonthlyPayment() ;
         }
 
         public void GenerateMonthlyAmortizationSchedule()

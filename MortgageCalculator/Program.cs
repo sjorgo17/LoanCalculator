@@ -6,15 +6,19 @@ namespace MortgageCalculator
     {
         static void Main(string[] args)
         {
+
+            Loan loan = GetLoanType();
             double principal = GetPrincipal();
-            double yearlyInterestRate = GetYearlyInterestRate();
             int numberOfYears = GetNumberOfYears();
 
-            MortgageLoan mortgageLoan = new MortgageLoan(principal, yearlyInterestRate, numberOfYears);
-            Console.WriteLine(string.Format("Monthly mortgage is: " + mortgageLoan.CalculateMonthlyPayment().ToString("C")));
+            loan.Principal = principal;
+            loan.Years = numberOfYears;
 
-            AmortizationCalculator amortizationCalculator = new AmortizationCalculator(mortgageLoan);
+            Console.WriteLine(string.Format("Monthly payment is: " + loan.CalculateMonthlyPayment().ToString("C")));
+
+            AmortizationCalculator amortizationCalculator = new AmortizationCalculator(loan);
             amortizationCalculator.GenerateMonthlyAmortizationSchedule();
+
 
         }
 
@@ -33,21 +37,6 @@ namespace MortgageCalculator
             return numberOfYears;
         }
 
-        private static double GetYearlyInterestRate()
-        {
-            Console.WriteLine("Enter yearly interest rate: ");
-            var inputRate = Console.ReadLine();
-            double yearlyInterestRate;
-
-            while (string.IsNullOrEmpty(inputRate) || !double.TryParse(inputRate, out yearlyInterestRate))
-            {
-                Console.WriteLine("Wrong input! Please try again: ");
-                inputRate = Console.ReadLine();
-            }
-
-            return yearlyInterestRate;
-        }
-
         private static double GetPrincipal()
         {
             Console.WriteLine("Enter loan's principal: ");
@@ -61,6 +50,32 @@ namespace MortgageCalculator
             }
 
             return principal;
+        }
+        private static Loan GetLoanType()
+        {
+            while (true)
+            {
+                DisplayMenu();
+
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        return new MortgageLoan();
+                    case "2":
+                        return new StudentLoan();
+                    case "3":
+                        return new BusinessLoan();
+                }
+            }
+        }
+
+        private static void DisplayMenu()
+        {
+            Console.WriteLine("Choose a loan type:");
+            Console.WriteLine("1) Mortgage");
+            Console.WriteLine("2) Student");
+            Console.WriteLine("3) Bussiness");
+            Console.Write("\r\nSelect an option: ");
         }
     }
 }
