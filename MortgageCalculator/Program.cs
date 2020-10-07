@@ -11,14 +11,9 @@ namespace MortgageCalculator
             double principal = GetPrincipal();
             int numberOfYears = GetNumberOfYears();
 
-            loan.Principal = principal;
-            loan.Years = numberOfYears;
+            Console.WriteLine(string.Format("Monthly payment is: " + loan.CalculateMonthlyPayment(principal,numberOfYears).ToString("C")));
 
-            Console.WriteLine(loan.YearlyInterestRate);
-
-            Console.WriteLine(string.Format("Monthly payment is: " + loan.CalculateMonthlyPayment().ToString("C")));
-
-            AmortizationCalculator amortizationCalculator = new AmortizationCalculator(loan);
+            AmortizationCalculator amortizationCalculator = new AmortizationCalculator(loan, principal, numberOfYears);
             amortizationCalculator.GenerateMonthlyAmortizationSchedule();
 
 

@@ -4,22 +4,20 @@ namespace MortgageCalculator
 {
     public abstract class Loan
     { 
-    public abstract double Principal { get; set; }
     public abstract double YearlyInterestRate { get; set; }
-    public abstract int Years { get; set; }
 
-
-    public double CalculateMonthlyPayment()
+    public double CalculateMonthlyPayment(double principal, int years)
     {
         const int MonthsInYear = 12;
         var monthlyInterestRate = YearlyInterestRate / MonthsInYear;
-        var months = Years * MonthsInYear;
+        var months = years * MonthsInYear;
 
-        double monthlyPayment = 0.0;
+        double monthlyPayment;
+
         if (monthlyInterestRate != 0)
-            monthlyPayment = (monthlyInterestRate * Principal * Math.Pow(1 + monthlyInterestRate, months)) / (Math.Pow(1 + monthlyInterestRate, months) - 1);
+            monthlyPayment = (monthlyInterestRate * principal * Math.Pow(1 + monthlyInterestRate, months)) / (Math.Pow(1 + monthlyInterestRate, months) - 1);
         else
-            monthlyPayment = Principal / months;
+            monthlyPayment = principal / months;
 
         return monthlyPayment;
     }
